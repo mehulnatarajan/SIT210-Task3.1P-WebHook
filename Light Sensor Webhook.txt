@@ -1,0 +1,28 @@
+// ------------
+// Liht sensor pubish to Thinkspeak
+// ------------
+
+// Connect light sensor/photo resistor to A0
+int photoresistor = A0;
+int analogValue;
+
+// Setup to read the photo resistor
+
+void setup() {
+    pinMode(photoresistor,INPUT);
+}
+
+// Loop function
+
+void loop() {
+
+// read the value from the photo resistor
+analogValue=analogRead(photoresistor);
+
+// Store the value in a  String variable
+String temp = String(analogValue);
+
+// Publish to the event "Light" to thinkspeak channel setup using webhook 
+Particle.publish("Light", temp, PRIVATE);
+delay(30000);               // Wait for 30 seconds until next reading 
+}
